@@ -1,12 +1,9 @@
 "use client";
 import React from 'react';
-import { useTopHeader, useSetTopHeader } from '@repo/store/userHooks';
 import { FaHome, FaUser, FaShoppingCart, FaSearch, FaTimes  } from 'react-icons/fa';
 
 export function Header() {
-    // const [showTopHeader, setShowTopHeader] = React.useState(true);
-    const showTopHeader = useTopHeader();
-    const setTopHeader = useSetTopHeader();
+    const [showTopHeader, setShowTopHeader] = React.useState(true);
     return (
         <header className="h-full sticky top-0">
             {/* Top Header */}
@@ -15,7 +12,7 @@ export function Header() {
                     id="topHeader"
                     className="w-full h-12 relative flex justify-center items-center uppercase text-sm font-bold bg-[#fff4e5] text-[#ff6900] px-8"
                 >
-                    <FaTimes onClick={()=>setTopHeader(false)} className="absolute right-8 text-4xl text-red-600 font-extralight border rounded-full p-1 hover:cursor-pointer" />
+                    <FaTimes onClick={() => setShowTopHeader(false)} className="absolute right-8 text-4xl text-red-600 font-extralight border rounded-full p-1 hover:cursor-pointer" />
                     <p>1-DAY EXPRESS DELIVERY NOW AVAILABLE IN BANGALORE!</p>
                 </div>
             )}
