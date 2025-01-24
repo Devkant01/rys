@@ -1,18 +1,30 @@
 "use client";
-import React from 'react';
-import { FaHome, FaUser, FaShoppingCart, FaSearch, FaTimes  } from 'react-icons/fa';
+import React, {useState, useEffect} from 'react';
+import { topHeader } from "@repo/store/design";
+import { useRecoilState } from "recoil";
+import { FaHome, FaUser, FaShoppingCart, FaSearch, FaTimes } from 'react-icons/fa';
 
 export function Header() {
-    const [showTopHeader, setShowTopHeader] = React.useState(true);
+    const [value, setValue] = useRecoilState(topHeader);
+    const [showTopHeader, setShowTopHeader] = useState(value);
+    useEffect(() => {
+        // Only set state if they're different
+        if (showTopHeader !== value) {
+            setValue(showTopHeader);
+        }
+    }, [showTopHeader]);
     return (
-        <header className="h-full sticky top-0">
+        <>
             {/* Top Header */}
             {showTopHeader && (
                 <div
                     id="topHeader"
-                    className="w-full h-12 relative flex justify-center items-center uppercase text-sm font-bold bg-[#fff4e5] text-[#ff6900] px-8"
+                    className="w-full h-12 flex justify-center items-center uppercase text-sm font-bold bg-[#fff4e5] text-[#ff6900] px-8"
                 >
-                    <FaTimes onClick={() => setShowTopHeader(false)} className="absolute right-8 text-4xl text-red-600 font-extralight border rounded-full p-1 hover:cursor-pointer" />
+                    <FaTimes
+                        onClick={() => setShowTopHeader(false)}
+                        className="absolute right-8 text-4xl text-red-600 font-thin border rounded-full p-1 hover:cursor-pointer hover:border-2"
+                    />
                     <p>1-DAY EXPRESS DELIVERY NOW AVAILABLE IN BANGALORE!</p>
                 </div>
             )}
@@ -20,15 +32,13 @@ export function Header() {
             {/* Actual Header */}
             <div
                 id="actualHeader"
-                className="w-full h-16 sticky top-0 bg-black text-white flex justify-between items-center px-8 z-50"
+                className="sticky top-0 bg-black text-white h-16 w-full flex justify-between items-center px-8 z-50 shadow-md"
             >
                 <HeaderLogo />
-
                 <Categories />
-
                 <UserAccount />
             </div>
-        </header>
+        </>
     );
 }
 
